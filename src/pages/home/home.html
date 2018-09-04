@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Background Geolocation
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Current Geolocation - Date: {{ currentLocation.date | date:'h:mm:ss' }}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        Latitude: {{ currentLocation.latitude }}
+      </ion-item>
+      <ion-item>
+        Longitude: {{ currentLocation.longitude }}
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button full (tap)="startTracking()" *ngIf="!isLocationEnabled">Iniciar captura</button>
+  <button ion-button full (tap)="stopTracking()" *ngIf="isLocationEnabled">Detener captura</button>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <p>Modo Background: {{ backgroundModeEnabled ? 'Activado': 'Desactivado' }}</p>
+    <ion-buttons end>
+      <button ion-button icon-end color="royal" (tap)="toggleBackgroundMode()">
+        {{ backgroundModeEnabled ? 'Desactivar': 'Activar' }}
+        <ion-icon *ngIf="backgroundModeEnabled" name="ios-checkmark-circle"></ion-icon>
+        <ion-icon *ngIf="!backgroundModeEnabled" name="ios-checkmark-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

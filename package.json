@@ -1,0 +1,81 @@
+{
+  "name": "ionic-background-geolocation",
+  "version": "1.0.0",
+  "author": "Juan David Nicholls Cardona",
+  "homepage": "http://nicholls.co",
+  "private": true,
+  "scripts": {
+    "start": "ionic-app-scripts serve",
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "lint": "ionic-app-scripts lint",
+    "ios": "ionic cordova run ios --target=\"iPhone-6, 11.4\" -l"
+  },
+  "dependencies": {
+    "@angular/animations": "5.2.11",
+    "@angular/common": "5.2.11",
+    "@angular/compiler": "5.2.11",
+    "@angular/compiler-cli": "5.2.11",
+    "@angular/core": "5.2.11",
+    "@angular/forms": "5.2.11",
+    "@angular/http": "5.2.11",
+    "@angular/platform-browser": "5.2.11",
+    "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/background-geolocation": "^4.12.2",
+    "@ionic-native/background-mode": "^4.12.2",
+    "@ionic-native/core": "~4.12.0",
+    "@ionic-native/geolocation": "^4.12.2",
+    "@ionic-native/local-notifications": "^4.12.2",
+    "@ionic-native/splash-screen": "~4.12.0",
+    "@ionic-native/status-bar": "~4.12.0",
+    "@ionic/storage": "2.1.3",
+    "cordova-android": "7.0.0",
+    "cordova-ios": "^4.5.5",
+    "cordova-plugin-background-mode": "git+https://github.com/katzer/cordova-plugin-background-mode.git",
+    "cordova-plugin-badge": "^0.8.7",
+    "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-ionic-keyboard": "^2.1.2",
+    "cordova-plugin-ionic-webview": "^2.1.0",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-mauron85-background-geolocation": "^2.3.5",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "ionic-angular": "3.9.2",
+    "ionicons": "3.0.0",
+    "rxjs": "5.5.11",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.26"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "3.2.0",
+    "typescript": "~2.6.2"
+  },
+  "description": "A background geolocation demo",
+  "cordova": {
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "App requires geolocation enabled"
+      },
+      "cordova-plugin-mauron85-background-geolocation": {
+        "GOOGLE_PLAY_SERVICES_VERSION": "11+",
+        "ANDROID_SUPPORT_LIBRARY_VERSION": "23+",
+        "ALWAYS_USAGE_DESCRIPTION": "App requires background tracking enabled",
+        "MOTION_USAGE_DESCRIPTION": "App requires motion detection"
+      }
+    }
+  }
+}
