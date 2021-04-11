@@ -1,10 +1,15 @@
 import { Component, NgZone } from '@angular/core'
 import { Subscription } from 'rxjs'
 import { Geolocation } from '@ionic-native/geolocation'
-import { BackgroundMode } from '@ionic-native/background-mode'
+import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { LocalNotifications } from '@ionic-native/local-notifications'
 import { NavController, Platform, ToastController } from 'ionic-angular'
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation'
+import {
+  BackgroundGeolocation,
+  BackgroundGeolocationConfig,
+  BackgroundGeolocationResponse,
+  BackgroundGeolocationEvents
+} from '@ionic-native/background-geolocation/ngx'
 
 interface CurrentLocation {
   latitude: Number
@@ -64,7 +69,7 @@ export class HomePage {
     this.platform.ready().then(() => {
       this.backgroundModeEnabled = this.backgroundMode.isEnabled()
     })
-    
+
     this.onResumeSubscription = platform.resume.subscribe(() => this.onResume())
     this.onPauseSubscription = platform.pause.subscribe(() => this.onPause())
   }
@@ -75,13 +80,13 @@ export class HomePage {
     this.showToast('Bienvenido de nuevo!')
     let lastLocation: CurrentLocation
     if (this.savedLocations.length) {
-      lastLocation = this.savedLocations[this.savedLocations.length-1]
+      lastLocation = this.savedLocations[this.savedLocations.length - 1]
       this.savedLocations = []
     }
     if (this.platform.is('cordova')) {
       const locations = await this.backgroundGeolocation.getLocations()
       if (locations && locations.length) {
-        lastLocation = locations[locations.length-1]
+        lastLocation = locations[locations.length - 1]
       }
     }
     if (lastLocation) {
@@ -106,19 +111,23 @@ export class HomePage {
     await this.platform.ready()
     if (this.platform.is('cordova')) {
       // Support Background Tracking
-      this.backgroundGeolocation.configure(this.backgroundGeolocationConfig)
-      .subscribe((location: BackgroundGeolocationResponse) => {
-        this.setNewLocation(location.latitude, location.longitude)
-      })
+      await this.backgroundGeolocation.configure(this.backgroundGeolocationConfig)
+      this.backgroundGeolocation.on(BackgroundGeolocationEvents.location)
+        .subscribe((location: BackgroundGeolocationResponse) => {
+          this.setNewLocation(location.latitude, location.longitude)
+        })
       this.backgroundGeolocation.start()
     }
     // Only Foreground Tracking
     this.watchSubscription = this.geolocation.watchPosition(this.geolocationConfig)
-    .subscribe((data) => {
-      if (data.coords) {
-        this.setNewLocation(data.coords.latitude, data.coords.longitude)
-      }
-    })
+      .subscribe((data) => {
+        if (data.coords) {
+          this.setNewLocation(data.coords.latitude, data.coords.longitude)
+        }
+      })
+
+    const position = await this.geolocation.getCurrentPosition()
+    this.setNewLocation(position.coords.latitude, position.coords.longitude)
     this.isLocationEnabled = true
   }
 
@@ -175,7 +184,7 @@ export class HomePage {
       text: text,
       led: 'FF0000',
       sound: null
-   })
+    })
   }
 
   unsubscribeWatch() {

@@ -5,8 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen'
 import { StatusBar } from '@ionic-native/status-bar'
 import { Geolocation } from '@ionic-native/geolocation'
 import { LocalNotifications } from '@ionic-native/local-notifications'
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation'
-import { BackgroundMode } from '@ionic-native/background-mode'
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx'
+import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 
 import { MyApp } from './app.component'
 import { HomePage } from '../pages/home/home'
@@ -32,7 +32,7 @@ import { HomePage } from '../pages/home/home'
     BackgroundMode,
     BackgroundGeolocation,
     LocalNotifications,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
